@@ -1,0 +1,461 @@
+.rent {
+  min-height: 100vh;
+  padding: 60px 0 100px;
+}
+
+.rent-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.rent-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.rent-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 56px;
+  font-weight: 900;
+  margin-bottom: 20px;
+}
+
+.rent-subtitle {
+  font-size: 20px;
+  color: var(--gray-text);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Benefits Section */
+.rent-benefits {
+  margin-bottom: 100px;
+}
+
+.section-heading {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 42px;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+.benefit-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: 15px;
+  padding: 35px 25px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.benefit-card:hover {
+  background: rgba(0, 212, 255, 0.05);
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+  transform: translateY(-5px);
+}
+
+.benefit-icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.benefit-card h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--light-text);
+  margin-bottom: 10px;
+}
+
+.benefit-card p {
+  color: var(--gray-text);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Occasions Section */
+.rent-occasions {
+  margin-bottom: 100px;
+}
+
+.occasions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.occasion-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 20px;
+  padding: 40px 30px;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.occasion-card:hover {
+  background: rgba(139, 92, 246, 0.05);
+  border-color: var(--neon-purple);
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
+  transform: translateY(-5px);
+}
+
+.occasion-icon {
+  font-size: 56px;
+  margin-bottom: 20px;
+}
+
+.occasion-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--light-text);
+  margin-bottom: 10px;
+}
+
+.occasion-description {
+  color: var(--gray-text);
+  font-size: 15px;
+}
+
+/* Packages Section */
+.rent-packages {
+  margin-bottom: 80px;
+}
+
+.packages-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.package-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 25px;
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.package-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 0, 110, 0.05), rgba(0, 212, 255, 0.05));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.package-card:hover::before {
+  opacity: 1;
+}
+
+.package-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.package-card.popular {
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 40px rgba(0, 212, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.popular-badge {
+  position: absolute;
+  top: 20px;
+  right: -35px;
+  background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+  color: white;
+  padding: 8px 50px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transform: rotate(45deg);
+  box-shadow: 0 5px 20px rgba(0, 212, 255, 0.5);
+}
+
+.package-header {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  position: relative;
+  z-index: 1;
+}
+
+.package-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 28px;
+  font-weight: 900;
+  text-align: center;
+}
+
+.package-price {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.price-amount {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 48px;
+  font-weight: 900;
+}
+
+.price-duration {
+  font-size: 14px;
+  color: var(--gray-text);
+}
+
+.package-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.package-features li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--gray-text);
+  font-size: 15px;
+}
+
+.feature-check {
+  color: var(--neon-green);
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.package-btn {
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* Form Section */
+.rent-form-section {
+  margin-top: 60px;
+  scroll-margin-top: 100px;
+}
+
+.form-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px solid rgba(255, 0, 110, 0.2);
+  border-radius: 30px;
+  padding: 50px;
+}
+
+.form-heading {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 36px;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.form-subheading {
+  text-align: center;
+  color: var(--gray-text);
+  font-size: 16px;
+  margin-bottom: 35px;
+}
+
+.rent-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-group label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--light-text);
+  letter-spacing: 1px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(255, 0, 110, 0.3);
+  border-radius: 10px;
+  padding: 15px 20px;
+  color: var(--light-text);
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--neon-pink);
+  box-shadow: 0 0 20px rgba(255, 0, 110, 0.3);
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.submit-btn {
+  margin-top: 15px;
+  width: 100%;
+  padding: 16px;
+}
+
+.success-message {
+  text-align: center;
+  padding: 60px 40px;
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 25px;
+  background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 0 40px rgba(255, 0, 110, 0.5);
+  animation: successPop 0.5s ease;
+}
+
+@keyframes successPop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.success-message h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--neon-pink);
+  margin-bottom: 10px;
+}
+
+.success-message p {
+  color: var(--gray-text);
+  font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .benefits-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .occasions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .packages-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .package-card.popular {
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .rent-container {
+    padding: 0 20px;
+  }
+
+  .rent-title {
+    font-size: 42px;
+  }
+
+  .rent-subtitle {
+    font-size: 16px;
+  }
+
+  .section-heading {
+    font-size: 32px;
+  }
+
+  .benefits-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .occasions-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .packages-grid {
+    gap: 25px;
+  }
+
+  .package-card {
+    padding: 35px 25px;
+  }
+
+  .form-wrapper {
+    padding: 40px 25px;
+  }
+
+  .form-heading {
+    font-size: 28px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
