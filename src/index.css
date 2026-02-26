@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -5,74 +7,68 @@
 }
 
 :root {
-  --neon-pink: #ff0080;
-  --neon-blue: #00e5ff;
-  --neon-purple: #a855f7;
-  --neon-green: #22ff88;
-  --neon-yellow: #ffd600;
-  --neon-orange: #ff6b35;
-  --neon-white: #f0f0f0;
+  --neon-pink: #ff5d3d;
+  --neon-blue: #17d3ff;
+  --neon-purple: #ffaa00;
+  --neon-green: #7bffb1;
+  --neon-yellow: #ffe66e;
+  --neon-orange: #ff8a3d;
+  --neon-white: #f3f7ff;
   --neon-darkblue: #1a3a8a;
-  --neon-warmwhite: #ffb46b;
-  --neon-red: #ff1a1a;
-  --dark-bg: #0d0d0d;
-  --darker-bg: #080808;
-  --card-bg: rgba(255, 255, 255, 0.02);
-  --card-border: rgba(255, 255, 255, 0.05);
-  --light-text: #ffffff;
-  --gray-text: #b4b4b4;
-  --blur-bg: rgba(13, 13, 13, 0.7);
+  --neon-warmwhite: #ffd09b;
+  --neon-red: #ff3d57;
+
+  --dark-bg: #060d1a;
+  --darker-bg: #040810;
+  --card-bg: rgba(255, 255, 255, 0.04);
+  --card-border: rgba(255, 255, 255, 0.14);
+  --light-text: #eef4ff;
+  --gray-text: #a9b7ce;
+  --blur-bg: rgba(5, 11, 22, 0.72);
 }
 
 body {
   margin: 0;
-  font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #0d0d0d;
-  background-image:
-    radial-gradient(at 0% 0%, rgba(255, 0, 128, 0.03) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(0, 229, 255, 0.03) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.03) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, rgba(34, 255, 136, 0.03) 0px, transparent 50%);
+  background: radial-gradient(circle at 10% 10%, rgba(23, 211, 255, 0.11), transparent 40%),
+    radial-gradient(circle at 90% 0%, rgba(255, 138, 61, 0.15), transparent 35%),
+    radial-gradient(circle at 50% 100%, rgba(123, 255, 177, 0.09), transparent 45%),
+    linear-gradient(145deg, #040810 0%, #06101f 45%, #09162a 100%);
   color: var(--light-text);
   overflow-x: hidden;
   line-height: 1.6;
 }
 
 code {
-  font-family: 'JetBrains Mono', source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: 'JetBrains Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-/* Scrollbar Styling */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--darker-bg);
+  background: rgba(3, 8, 16, 0.95);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(255, 0, 128, 0.6), rgba(168, 85, 247, 0.6));
-  border-radius: 10px;
-  border: 2px solid var(--darker-bg);
+  background: linear-gradient(180deg, rgba(23, 211, 255, 0.65), rgba(255, 93, 61, 0.7));
+  border-radius: 999px;
+  border: 2px solid rgba(3, 8, 16, 0.95);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, var(--neon-pink), var(--neon-purple));
+  background: linear-gradient(180deg, var(--neon-blue), var(--neon-pink));
 }
 
-/* Selection */
 ::selection {
-  background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+  background: rgba(23, 211, 255, 0.35);
   color: white;
 }
 
 ::-moz-selection {
-  background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+  background: rgba(23, 211, 255, 0.35);
   color: white;
 }
