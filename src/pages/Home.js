@@ -1,37 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { getFeatures, getShowcase } from '../api/contentService';
 import './Home.css';
 
 function Home() {
-  const features = [
-    {
-      icon: '✨',
-      title: 'Custom Designs',
-      description: 'Create your unique neon sign with our easy-to-use design tool. Any text, any color, any size.'
-    },
-    {
-      icon: '🎨',
-      title: 'Professional Quality',
-      description: 'Handcrafted by expert artisans using premium LED neon technology that lasts for years.'
-    },
-    {
-      icon: '🚚',
-      title: 'Fast Delivery',
-      description: 'Quick turnaround times with secure shipping. Get your custom neon sign in 2-3 weeks.'
-    },
-    {
-      icon: '💰',
-      title: 'Rent Options',
-      description: 'Perfect for events, parties, and weddings. Rent stunning neon signs at affordable rates.'
-    }
-  ];
+  const [features, setFeatures] = useState([]);
+  const [showcase, setShowcase] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const showcase = [
-    { id: 1, title: 'Good Vibes Only', color: 'pink' },
-    { id: 2, title: 'Hello Beautiful', color: 'blue' },
-    { id: 3, title: 'Dream Big', color: 'purple' },
-    { id: 4, title: 'Let\'s Party', color: 'green' }
-  ];
+  useEffect(() => {
+    fetchContent();
+  }, []);
+
+  const fetchContent = async () => {
+    try {
+      const [featuresRes, showcaseRes] = await Promise.all([
+        getFeatures(),
+        getShowcase(),
+      ]);
+
+      setFeatures(featuresRes.data);
+      setShowcase(showcaseRes.data);
+    } catch (error) {
+      console.error('Failed to load content:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return <div className="loading">Loading...</div>;
+  }
 
   return (
     <div className="home">
@@ -51,7 +50,7 @@ function Home() {
               Transform any space with stunning, handcrafted neon signs. Perfect for homes, businesses, events, and special occasions.
             </p>
             <div className="hero-buttons">
-              <Link to="/order" className="neon-button">
+              <Link to="/order" className="neon-button order-now-glow">
                 Design Your Sign
               </Link>
               <Link to="/portfolio" className="hero-btn-secondary">
@@ -100,7 +99,7 @@ function Home() {
             {showcase.map((item) => (
               <div key={item.id} className="showcase-item">
                 <div className={`showcase-neon neon-${item.color}`}>
-                  <span className="neon-text">{item.title}</span>
+                  <span className="neon-text" style={{ color: item.color }}>{item.title}</span>
                 </div>
               </div>
             ))}
@@ -123,7 +122,7 @@ function Home() {
             Create your custom neon sign today or rent one for your special event
           </p>
           <div className="cta-buttons">
-            <Link to="/order" className="neon-button">
+            <Link to="/order" className="neon-button order-now-glow">
               Order Custom Sign
             </Link>
             <Link to="/rent" className="neon-button" style={{ borderColor: 'var(--neon-blue)', color: 'var(--neon-blue)' }}>

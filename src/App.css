@@ -114,6 +114,27 @@
     0 16px 35px -16px rgba(255, 93, 61, 0.55);
 }
 
+.neon-button.order-now-glow:hover,
+.nav-order-btn.order-now-glow:hover {
+  border-color: rgba(23, 211, 255, 0.82) !important;
+  box-shadow:
+    0 0 18px rgba(23, 211, 255, 0.42),
+    0 18px 42px -14px rgba(23, 211, 255, 0.9),
+    0 26px 48px -18px rgba(23, 211, 255, 0.75) !important;
+}
+
+.neon-button.order-now-glow,
+.nav-order-btn.order-now-glow {
+  background: linear-gradient(135deg, rgba(23, 211, 255, 0.22), rgba(23, 211, 255, 0.1)) !important;
+  border-color: rgba(23, 211, 255, 0.46) !important;
+}
+
+.order-now-glow:hover {
+  text-shadow:
+    0 0 8px rgba(23, 211, 255, 0.9),
+    0 0 18px rgba(23, 211, 255, 0.6);
+}
+
 .neon-button:active {
   transform: translateY(0);
 }

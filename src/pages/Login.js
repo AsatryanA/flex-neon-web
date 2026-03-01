@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../i18n/LanguageContext';
@@ -14,6 +14,10 @@ function Login() {
   const { loginUser } = useAuth();
   const { t } = useLanguage();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Get the page they were trying to visit, or default to home
+  const from = location.state?.from?.pathname || '/';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,7 +27,7 @@ function Login() {
     try {
       const response = await login(email, password);
       loginUser(response);
-      navigate('/');
+      navigate(from, { replace: true });
     } catch (err) {
       const message = err.response?.data?.message || t('auth.loginError');
       setError(message);
@@ -38,7 +42,7 @@ function Login() {
     try {
       const response = await googleAuth(credentialResponse.credential);
       loginUser(response);
-      navigate('/');
+      navigate(from, { replace: true });
     } catch (err) {
       setError(t('auth.googleError'));
     } finally {

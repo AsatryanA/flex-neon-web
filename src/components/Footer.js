@@ -36,14 +36,14 @@ function Footer() {
               <li><Link to="/">Home</Link></li>
               <li><Link to="/portfolio">Portfolio</Link></li>
               <li><Link to="/about">About Us</Link></li>
-              <li><Link to="/order">Order Custom Sign</Link></li>
+              <li><Link to="/order" className="order-now-glow">Order Custom Sign</Link></li>
             </ul>
           </div>
 
           <div className="footer-section">
             <h4 className="footer-heading">Services</h4>
             <ul className="footer-links">
-              <li><Link to="/order">Custom Designs</Link></li>
+              <li><Link to="/order" className="order-now-glow">Custom Designs</Link></li>
               <li><Link to="/rent">Rent Neon Signs</Link></li>
               <li><Link to="/portfolio">Gallery</Link></li>
               <li><Link to="/contact">Get a Quote</Link></li>

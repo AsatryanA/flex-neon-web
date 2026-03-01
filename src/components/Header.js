@@ -72,7 +72,7 @@ function Header() {
           <Link to="/about" className={location.pathname === '/about' ? 'active' : ''}>{t('nav.about')}</Link>
           <Link to="/rent" className={location.pathname === '/rent' ? 'active' : ''}>{t('nav.rent')}</Link>
           <Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''}>{t('nav.contact')}</Link>
-          <Link to="/order" className="nav-order-btn">{t('nav.orderNow')}</Link>
+          <Link to="/order" className="nav-order-btn order-now-glow">{t('nav.orderNow')}</Link>
           <div className="nav-language-switcher">
             <LanguageSwitcher />
           </div>
@@ -106,6 +106,14 @@ function Header() {
                     <span className="user-dropdown-email">{user?.email}</span>
                   </div>
                   <div className="user-dropdown-divider"></div>
+                  {user?.role === 'ADMIN' && (
+                    <>
+                      <Link to="/admin" className="user-dropdown-item">
+                        Admin Panel
+                      </Link>
+                      <div className="user-dropdown-divider"></div>
+                    </>
+                  )}
                   <button className="user-dropdown-item" onClick={handleLogout}>
                     {t('auth.logout')}
                   </button>

@@ -81,7 +81,7 @@ function Portfolio() {
           <p className="cta-text">
             Let us bring your vision to life with a custom neon sign
           </p>
-          <button className="neon-button" onClick={() => window.location.href = '/order'}>
+          <button className="neon-button order-now-glow" onClick={() => window.location.href = '/order'}>
             Start Designing
           </button>
         </div>
