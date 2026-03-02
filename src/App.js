@@ -15,12 +15,12 @@ import Rent from './pages/Rent';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AdminLayout from './components/admin/AdminLayout';
-import AdminDashboard from './pages/admin/AdminDashboard';
+import HomeAdmin from './pages/admin/HomeAdmin';
 import PortfolioAdmin from './pages/admin/PortfolioAdmin';
-import FeaturesAdmin from './pages/admin/FeaturesAdmin';
-import ShowcaseAdmin from './pages/admin/ShowcaseAdmin';
-import TeamAdmin from './pages/admin/TeamAdmin';
+import AboutAdmin from './pages/admin/AboutAdmin';
+import RentAdmin from './pages/admin/RentAdmin';
 import ContactAdmin from './pages/admin/ContactAdmin';
+import SettingsAdmin from './pages/admin/SettingsAdmin';
 import './App.css';
 
 function App() {
@@ -31,7 +31,6 @@ function App() {
           <Router>
             <div className="App">
               <Routes>
-                {/* Admin Routes */}
                 <Route
                   path="/admin/*"
                   element={
@@ -40,15 +39,14 @@ function App() {
                     </ProtectedRoute>
                   }
                 >
-                  <Route index element={<AdminDashboard />} />
+                  <Route index element={<HomeAdmin />} />
                   <Route path="portfolio" element={<PortfolioAdmin />} />
-                  <Route path="features" element={<FeaturesAdmin />} />
-                  <Route path="showcase" element={<ShowcaseAdmin />} />
-                  <Route path="team" element={<TeamAdmin />} />
+                  <Route path="about" element={<AboutAdmin />} />
+                  <Route path="rent" element={<RentAdmin />} />
                   <Route path="contact" element={<ContactAdmin />} />
+                  <Route path="settings" element={<SettingsAdmin />} />
                 </Route>
 
-                {/* Public Routes */}
                 <Route
                   path="/*"
                   element={
@@ -62,7 +60,6 @@ function App() {
                           <Route path="/contact" element={<Contact />} />
                           <Route path="/login" element={<Login />} />
                           <Route path="/register" element={<Register />} />
-                          {/* Protected Routes - Require Login */}
                           <Route
                             path="/order"
                             element={

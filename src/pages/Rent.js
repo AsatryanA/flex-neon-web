@@ -1,9 +1,96 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { getOccasions, getRentalPackages } from '../api/contentService';
 import './Rent.css';
+
+const fallbackRentalPackages = [
+  {
+    id: 1,
+    name: 'Starter',
+    price: '$99',
+    duration: 'per day',
+    features: [
+      '1 Small Neon Sign',
+      'Basic Setup Included',
+      'Standard Delivery',
+      '24/7 Support',
+      'Free Collection',
+    ],
+    color: 'var(--neon-pink)',
+    popular: false,
+  },
+  {
+    id: 2,
+    name: 'Popular',
+    price: '$199',
+    duration: 'per day',
+    features: [
+      '2-3 Medium Neon Signs',
+      'Professional Setup',
+      'Same-Day Delivery',
+      'Priority Support',
+      'Free Collection',
+      'Event Consultation',
+    ],
+    color: 'var(--neon-blue)',
+    popular: true,
+  },
+  {
+    id: 3,
+    name: 'Premium',
+    price: '$349',
+    duration: 'per day',
+    features: [
+      '4-6 Large Neon Signs',
+      'Full Setup & Styling',
+      'Express Delivery',
+      'Dedicated Support',
+      'Free Collection',
+      'Event Design Service',
+      'Photography Lighting',
+    ],
+    color: 'var(--neon-purple)',
+    popular: false,
+  },
+];
+
+const fallbackOccasions = [
+  { icon: '💍', name: 'Weddings', description: 'Make your special day unforgettable' },
+  { icon: '🎉', name: 'Parties', description: 'Light up your celebration' },
+  { icon: '💼', name: 'Corporate Events', description: 'Professional event lighting' },
+  { icon: '📸', name: 'Photo Shoots', description: 'Perfect backdrop for photos' },
+  { icon: '🎭', name: 'Performances', description: 'Stage and performance lighting' },
+  { icon: '🏪', name: 'Pop-up Shops', description: 'Attract customers with neon' },
+];
+
+const sortAndFilterActive = (items) => items
+  .filter((item) => item?.active !== false)
+  .sort((a, b) => (a.displayOrder ?? 0) - (b.displayOrder ?? 0));
+
+const normalizeFeatures = (features) => {
+  if (Array.isArray(features)) {
+    return features;
+  }
+
+  if (typeof features === 'string') {
+    try {
+      const parsed = JSON.parse(features);
+      if (Array.isArray(parsed)) {
+        return parsed;
+      }
+    } catch (error) {
+      return features.split('\n').map((item) => item.trim()).filter(Boolean);
+    }
+  }
+
+  return [];
+};
 
 function Rent() {
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [showContactForm, setShowContactForm] = useState(false);
+  const [rentalPackages, setRentalPackages] = useState(fallbackRentalPackages);
+  const [occasions, setOccasions] = useState(fallbackOccasions);
+  const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -11,74 +98,54 @@ function Rent() {
     eventDate: '',
     eventType: '',
     duration: '',
-    message: ''
+    message: '',
   });
   const [submitted, setSubmitted] = useState(false);
 
-  const rentalPackages = [
-    {
-      id: 1,
-      name: 'Starter',
-      price: '$99',
-      duration: 'per day',
-      features: [
-        '1 Small Neon Sign',
-        'Basic Setup Included',
-        'Standard Delivery',
-        '24/7 Support',
-        'Free Collection'
-      ],
-      color: 'var(--neon-pink)',
-      popular: false
-    },
-    {
-      id: 2,
-      name: 'Popular',
-      price: '$199',
-      duration: 'per day',
-      features: [
-        '2-3 Medium Neon Signs',
-        'Professional Setup',
-        'Same-Day Delivery',
-        'Priority Support',
-        'Free Collection',
-        'Event Consultation'
-      ],
-      color: 'var(--neon-blue)',
-      popular: true
-    },
-    {
-      id: 3,
-      name: 'Premium',
-      price: '$349',
-      duration: 'per day',
-      features: [
-        '4-6 Large Neon Signs',
-        'Full Setup & Styling',
-        'Express Delivery',
-        'Dedicated Support',
-        'Free Collection',
-        'Event Design Service',
-        'Photography Lighting'
-      ],
-      color: 'var(--neon-purple)',
-      popular: false
-    }
-  ];
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const [packagesRes, occasionsRes] = await Promise.all([
+          getRentalPackages(),
+          getOccasions(),
+        ]);
 
-  const occasions = [
-    { icon: '💍', name: 'Weddings', description: 'Make your special day unforgettable' },
-    { icon: '🎉', name: 'Parties', description: 'Light up your celebration' },
-    { icon: '💼', name: 'Corporate Events', description: 'Professional event lighting' },
-    { icon: '📸', name: 'Photo Shoots', description: 'Perfect backdrop for photos' },
-    { icon: '🎭', name: 'Performances', description: 'Stage and performance lighting' },
-    { icon: '🏪', name: 'Pop-up Shops', description: 'Attract customers with neon' }
-  ];
+        const apiPackages = Array.isArray(packagesRes.data) ? sortAndFilterActive(packagesRes.data) : [];
+        const apiOccasions = Array.isArray(occasionsRes.data) ? sortAndFilterActive(occasionsRes.data) : [];
+
+        if (apiPackages.length) {
+          setRentalPackages(apiPackages.map((pkg, index) => ({
+            id: pkg.id ?? index,
+            name: pkg.name || `Package ${index + 1}`,
+            price: pkg.price || '$0',
+            duration: pkg.duration || 'per day',
+            features: normalizeFeatures(pkg.features),
+            color: pkg.color || 'var(--neon-pink)',
+            popular: Boolean(pkg.popular),
+          })));
+        }
+
+        if (apiOccasions.length) {
+          setOccasions(apiOccasions.map((occasion) => ({
+            icon: occasion.icon || '✨',
+            name: occasion.name || 'Occasion',
+            description: occasion.description || '',
+          })));
+        }
+      } catch (error) {
+        console.error('Failed to load rental content:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchContent();
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -96,7 +163,7 @@ function Rent() {
         eventDate: '',
         eventType: '',
         duration: '',
-        message: ''
+        message: '',
       });
     }, 3000);
   };
@@ -106,10 +173,13 @@ function Rent() {
     setShowContactForm(true);
   };
 
+  if (loading) {
+    return <div className="loading">Loading...</div>;
+  }
+
   return (
     <div className="rent">
       <div className="rent-container">
-        {/* Header */}
         <div className="rent-header">
           <h1 className="rent-title">
             <span className="neon-text" style={{ color: 'var(--neon-pink)' }}>Rent Neon Signs</span>
@@ -119,7 +189,6 @@ function Rent() {
           </p>
         </div>
 
-        {/* Benefits Section */}
         <section className="rent-benefits">
           <h2 className="section-heading neon-text" style={{ color: 'var(--neon-blue)' }}>
             Why Rent From Us?
@@ -148,7 +217,6 @@ function Rent() {
           </div>
         </section>
 
-        {/* Occasions Section */}
         <section className="rent-occasions">
           <h2 className="section-heading neon-text" style={{ color: 'var(--neon-purple)' }}>
             Perfect For Any Occasion
@@ -164,13 +232,12 @@ function Rent() {
           </div>
         </section>
 
-        {/* Packages Section */}
         <section className="rent-packages">
           <h2 className="section-heading neon-text" style={{ color: 'var(--neon-green)' }}>
             Rental Packages
           </h2>
           <div className="packages-grid">
-            {rentalPackages.map(pkg => (
+            {rentalPackages.map((pkg) => (
               <div key={pkg.id} className={`package-card ${pkg.popular ? 'popular' : ''}`}>
                 {pkg.popular && <div className="popular-badge">Most Popular</div>}
                 <div className="package-header">
@@ -200,7 +267,6 @@ function Rent() {
           </div>
         </section>
 
-        {/* Contact Form */}
         {showContactForm && (
           <section className="rent-form-section">
             <div className="form-wrapper">
@@ -285,11 +351,11 @@ function Rent() {
                         required
                       >
                         <option value="">Select event type...</option>
-                        <option value="wedding">Wedding</option>
-                        <option value="party">Party</option>
-                        <option value="corporate">Corporate Event</option>
-                        <option value="photoshoot">Photo Shoot</option>
-                        <option value="other">Other</option>
+                        {occasions.map((occasion, index) => (
+                          <option key={index} value={occasion.name.toLowerCase().replace(/\s+/g, '-')}>
+                            {occasion.name}
+                          </option>
+                        ))}
                       </select>
                     </div>
                     <div className="form-group">
