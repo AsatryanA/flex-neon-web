@@ -1,6 +1,7 @@
 .language-switcher {
   position: relative;
   z-index: 100;
+  isolation: isolate;
 }
 
 .language-button {
@@ -46,6 +47,7 @@
   position: absolute;
   top: calc(100% + 10px);
   right: 0;
+  z-index: 1002;
   background: rgba(7, 15, 28, 0.96);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 14px;
@@ -96,7 +98,7 @@
 .language-overlay {
   position: fixed;
   inset: 0;
-  z-index: 99;
+  z-index: 1001;
 }
 
 @media (max-width: 768px) {

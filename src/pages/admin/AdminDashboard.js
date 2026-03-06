@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../../i18n/LanguageContext';
 import {
   getAdminPortfolio,
   getAdminFeatures,
@@ -9,6 +10,7 @@ import {
 import './AdminDashboard.css';
 
 function AdminDashboard() {
+  const { t } = useLanguage();
   const [stats, setStats] = useState({
     portfolio: 0,
     features: 0,
@@ -44,20 +46,20 @@ function AdminDashboard() {
   };
 
   const cards = [
-    { title: 'Portfolio Items', count: stats.portfolio, icon: '🖼️', link: '/admin/portfolio', color: '#FF1493' },
-    { title: 'Features', count: stats.features, icon: '✨', link: '/admin/features', color: '#00CED1' },
-    { title: 'Team Members', count: stats.team, icon: '👥', link: '/admin/team', color: '#9D4EDD' },
-    { title: 'FAQs', count: stats.faqs, icon: '❓', link: '/admin/faq', color: '#FF6B35' },
+    { title: t('admin.dashboard.portfolioItems'), count: stats.portfolio, icon: '🖼️', link: '/admin/portfolio', color: '#FF1493' },
+    { title: t('admin.dashboard.features'), count: stats.features, icon: '✨', link: '/admin/features', color: '#00CED1' },
+    { title: t('admin.dashboard.teamMembers'), count: stats.team, icon: '👥', link: '/admin/team', color: '#9D4EDD' },
+    { title: t('admin.dashboard.faqs'), count: stats.faqs, icon: '❓', link: '/admin/faq', color: '#FF6B35' },
   ];
 
   if (loading) {
-    return <div className="loading">Loading dashboard...</div>;
+    return <div className="loading">{t('auth.loading')}</div>;
   }
 
   return (
     <div className="admin-dashboard">
-      <h1>Dashboard</h1>
-      <p className="dashboard-subtitle">Welcome to FlexNeon Admin Panel</p>
+      <h1>{t('admin.dashboard.title')}</h1>
+      <p className="dashboard-subtitle">{t('admin.dashboard.subtitle')}</p>
 
       <div className="dashboard-grid">
         {cards.map((card) => (
@@ -77,16 +79,16 @@ function AdminDashboard() {
       </div>
 
       <div className="quick-links">
-        <h2>Quick Actions</h2>
+        <h2>{t('admin.dashboard.quickActions')}</h2>
         <div className="quick-links-grid">
           <Link to="/admin/portfolio" className="quick-link">
-            Add Portfolio Item
+            {t('admin.dashboard.addPortfolioItem')}
           </Link>
           <Link to="/admin/features" className="quick-link">
-            Manage Features
+            {t('admin.dashboard.manageFeatures')}
           </Link>
           <Link to="/admin/settings" className="quick-link">
-            Site Settings
+            {t('admin.dashboard.siteSettings')}
           </Link>
         </div>
       </div>

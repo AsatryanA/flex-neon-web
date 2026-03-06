@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getFeatures, getShowcase } from '../api/contentService';
+import { useLanguage } from '../i18n/LanguageContext';
 import './Home.css';
 
 function Home() {
+  const { t } = useLanguage();
   const [features, setFeatures] = useState([]);
   const [showcase, setShowcase] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -29,7 +31,7 @@ function Home() {
   };
 
   if (loading) {
-    return <div className="loading">Loading...</div>;
+    return <div className="loading">{t('auth.loading')}</div>;
   }
 
   return (
@@ -39,22 +41,22 @@ function Home() {
         <div className="hero-container">
           <div className="hero-content">
             <h1 className="hero-title">
-              <span className="neon-text" style={{ color: 'var(--neon-pink)' }}>Illuminate</span>
+              <span className="neon-text" style={{ color: 'var(--neon-pink)' }}>{t('home.heroTitle1')}</span>
               <br />
-              Your Space
+              {t('home.heroTitle2')}
             </h1>
             <p className="hero-subtitle">
-              Custom Neon Signs for Every Occasion
+              {t('home.heroSubtitle')}
             </p>
             <p className="hero-description">
-              Transform any space with stunning, handcrafted neon signs. Perfect for homes, businesses, events, and special occasions.
+              {t('home.heroDescription')}
             </p>
             <div className="hero-buttons">
               <Link to="/order" className="neon-button order-now-glow">
-                Design Your Sign
+                {t('home.designYourSign')}
               </Link>
               <Link to="/portfolio" className="hero-btn-secondary">
-                View Gallery
+                {t('home.viewGallery')}
               </Link>
             </div>
           </div>
@@ -75,7 +77,7 @@ function Home() {
       <section className="features">
         <div className="features-container">
           <h2 className="section-title">
-            <span className="neon-text" style={{ color: 'var(--neon-blue)' }}>Why Choose Us</span>
+            <span className="neon-text" style={{ color: 'var(--neon-blue)' }}>{t('home.whyChooseUs')}</span>
           </h2>
           <div className="features-grid">
             {features.map((feature, index) => (
@@ -93,7 +95,7 @@ function Home() {
       <section className="showcase">
         <div className="showcase-container">
           <h2 className="section-title">
-            <span className="neon-text" style={{ color: 'var(--neon-purple)' }}>Popular Designs</span>
+            <span className="neon-text" style={{ color: 'var(--neon-purple)' }}>{t('home.popularDesigns')}</span>
           </h2>
           <div className="showcase-grid">
             {showcase.map((item) => (
@@ -106,7 +108,7 @@ function Home() {
           </div>
           <div className="showcase-cta">
             <Link to="/portfolio" className="neon-button">
-              See More Designs
+              {t('home.seeMoreDesigns')}
             </Link>
           </div>
         </div>
@@ -116,17 +118,17 @@ function Home() {
       <section className="cta">
         <div className="cta-container">
           <h2 className="cta-title neon-text" style={{ color: 'var(--neon-pink)' }}>
-            Ready to Light Up Your Space?
+            {t('home.readyTitle')}
           </h2>
           <p className="cta-description">
-            Create your custom neon sign today or rent one for your special event
+            {t('home.readyDescription')}
           </p>
           <div className="cta-buttons">
             <Link to="/order" className="neon-button order-now-glow">
-              Order Custom Sign
+              {t('home.orderCustomSign')}
             </Link>
             <Link to="/rent" className="neon-button" style={{ borderColor: 'var(--neon-blue)', color: 'var(--neon-blue)' }}>
-              Rent a Sign
+              {t('home.rentASign')}
             </Link>
           </div>
         </div>

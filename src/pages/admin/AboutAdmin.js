@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useLanguage } from '../../i18n/LanguageContext';
 import DataTable from '../../components/admin/DataTable';
 import FormModal from '../../components/admin/FormModal';
 import {
@@ -29,6 +30,7 @@ const defaults = {
 };
 
 function AboutAdmin() {
+  const { t } = useLanguage();
   const [team, setTeam] = useState([]);
   const [values, setValues] = useState([]);
   const [story, setStory] = useState([]);
@@ -164,32 +166,32 @@ function AboutAdmin() {
 
   const statusColumn = {
     key: 'active',
-    label: 'Status',
+    label: t('admin.common.status'),
     render: (active) => (
       <span className={active ? 'status-active' : 'status-inactive'}>
-        {active ? 'Active' : 'Inactive'}
+        {active ? t('admin.common.active') : t('admin.common.inactive')}
       </span>
     ),
   };
 
   const teamColumns = [
     { key: 'emoji', label: 'Avatar' },
-    { key: 'name', label: 'Name' },
+    { key: 'name', label: t('admin.common.name') },
     { key: 'role', label: 'Role' },
-    { key: 'displayOrder', label: 'Order' },
+    { key: 'displayOrder', label: t('admin.common.order') },
     statusColumn,
   ];
 
   const valuesColumns = [
-    { key: 'icon', label: 'Icon' },
-    { key: 'title', label: 'Title' },
-    { key: 'description', label: 'Description' },
-    { key: 'displayOrder', label: 'Order' },
+    { key: 'icon', label: t('admin.common.icon') },
+    { key: 'title', label: t('admin.common.title') },
+    { key: 'description', label: t('admin.common.description') },
+    { key: 'displayOrder', label: t('admin.common.order') },
     statusColumn,
   ];
 
   const storyColumns = [
-    { key: 'title', label: 'Title' },
+    { key: 'title', label: t('admin.common.title') },
     {
       key: 'content',
       label: 'Content',
@@ -198,7 +200,7 @@ function AboutAdmin() {
         return text.length > 120 ? `${text.slice(0, 120)}...` : text;
       },
     },
-    { key: 'displayOrder', label: 'Order' },
+    { key: 'displayOrder', label: t('admin.common.order') },
     statusColumn,
   ];
 
@@ -209,35 +211,35 @@ function AboutAdmin() {
       label: 'Number',
       render: (value, row) => value || row.value,
     },
-    { key: 'displayOrder', label: 'Order' },
+    { key: 'displayOrder', label: t('admin.common.order') },
     statusColumn,
   ];
 
-  if (loading) return <div className="loading">Loading about content...</div>;
+  if (loading) return <div className="loading">{t('auth.loading')}</div>;
 
   return (
     <div className="admin-page">
       <div className="page-header">
-        <h1>About: Team</h1>
-        <button onClick={() => openModal('team')} className="btn-add">+ Add Team Member</button>
+        <h1>{t('admin.about.team')}</h1>
+        <button onClick={() => openModal('team')} className="btn-add">+ {t('admin.about.addTeamMember')}</button>
       </div>
       <DataTable columns={teamColumns} data={team} onEdit={(item) => openModal('team', item)} onDelete={(id) => handleDelete('team', id)} />
 
       <div className="page-header" style={{ marginTop: '3rem' }}>
-        <h1>About: Values</h1>
-        <button onClick={() => openModal('values')} className="btn-add">+ Add Value</button>
+        <h1>{t('admin.about.values')}</h1>
+        <button onClick={() => openModal('values')} className="btn-add">+ {t('admin.about.addValue')}</button>
       </div>
       <DataTable columns={valuesColumns} data={values} onEdit={(item) => openModal('values', item)} onDelete={(id) => handleDelete('values', id)} />
 
       <div className="page-header" style={{ marginTop: '3rem' }}>
-        <h1>About: Story</h1>
-        <button onClick={() => openModal('story')} className="btn-add">+ Add Story Block</button>
+        <h1>{t('admin.about.story')}</h1>
+        <button onClick={() => openModal('story')} className="btn-add">+ {t('admin.about.addStoryBlock')}</button>
       </div>
       <DataTable columns={storyColumns} data={story} onEdit={(item) => openModal('story', item)} onDelete={(id) => handleDelete('story', id)} />
 
       <div className="page-header" style={{ marginTop: '3rem' }}>
-        <h1>About: Stats</h1>
-        <button onClick={() => openModal('stats')} className="btn-add">+ Add Stat</button>
+        <h1>{t('admin.about.stats')}</h1>
+        <button onClick={() => openModal('stats')} className="btn-add">+ {t('admin.about.addStat')}</button>
       </div>
       <DataTable columns={statsColumns} data={stats} onEdit={(item) => openModal('stats', item)} onDelete={(id) => handleDelete('stats', id)} />
 
@@ -319,13 +321,13 @@ function AboutAdmin() {
                 checked={formData.active ?? true}
                 onChange={(e) => setFormData({ ...formData, active: e.target.checked })}
               />{' '}
-              Active
+              {t('admin.common.active')}
             </label>
           </div>
 
           <div className="form-actions">
-            <button type="button" onClick={() => setIsModalOpen(false)} className="btn-cancel">Cancel</button>
-            <button type="submit" className="btn-submit">{editingItem ? 'Update' : 'Create'}</button>
+            <button type="button" onClick={() => setIsModalOpen(false)} className="btn-cancel">{t('admin.common.cancel')}</button>
+            <button type="submit" className="btn-submit">{editingItem ? t('admin.common.update') : t('admin.common.create')}</button>
           </div>
         </form>
       </FormModal>

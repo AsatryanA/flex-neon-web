@@ -114,6 +114,10 @@ function Header() {
                       <div className="user-dropdown-divider"></div>
                     </>
                   )}
+                  <Link to="/my-bookings" className="user-dropdown-item">
+                    My Bookings
+                  </Link>
+                  <div className="user-dropdown-divider"></div>
                   <button className="user-dropdown-item" onClick={handleLogout}>
                     {t('auth.logout')}
                   </button>

@@ -5,6 +5,8 @@
 }
 
 .admin-header {
+  position: relative;
+  z-index: 20;
   background: white;
   padding: 1rem 2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -21,9 +23,16 @@
 }
 
 .admin-user-info {
+  position: relative;
+  z-index: 21;
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+.admin-user-info .language-switcher {
+  z-index: 30;
+  flex-shrink: 0;
 }
 
 .btn-logout {

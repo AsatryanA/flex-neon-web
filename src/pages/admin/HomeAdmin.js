@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useLanguage } from '../../i18n/LanguageContext';
 import DataTable from '../../components/admin/DataTable';
 import FormModal from '../../components/admin/FormModal';
 import {
@@ -29,6 +30,7 @@ const defaultShowcase = {
 };
 
 function HomeAdmin() {
+  const { t } = useLanguage();
   const [features, setFeatures] = useState([]);
   const [showcase, setShowcase] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -144,58 +146,58 @@ function HomeAdmin() {
   };
 
   const featureColumns = [
-    { key: 'icon', label: 'Icon' },
-    { key: 'title', label: 'Title' },
-    { key: 'description', label: 'Description' },
-    { key: 'displayOrder', label: 'Order' },
+    { key: 'icon', label: t('admin.common.icon') },
+    { key: 'title', label: t('admin.common.title') },
+    { key: 'description', label: t('admin.common.description') },
+    { key: 'displayOrder', label: t('admin.common.order') },
     {
       key: 'active',
-      label: 'Status',
+      label: t('admin.common.status'),
       render: (active) => (
         <span className={active ? 'status-active' : 'status-inactive'}>
-          {active ? 'Active' : 'Inactive'}
+          {active ? t('admin.common.active') : t('admin.common.inactive')}
         </span>
       ),
     },
   ];
 
   const showcaseColumns = [
-    { key: 'title', label: 'Title' },
+    { key: 'title', label: t('admin.common.title') },
     {
       key: 'color',
-      label: 'Color',
+      label: t('admin.common.color'),
       render: (color) => <span style={{ color, fontWeight: 700 }}>{color}</span>,
     },
-    { key: 'displayOrder', label: 'Order' },
+    { key: 'displayOrder', label: t('admin.common.order') },
     {
       key: 'active',
-      label: 'Status',
+      label: t('admin.common.status'),
       render: (active) => (
         <span className={active ? 'status-active' : 'status-inactive'}>
-          {active ? 'Active' : 'Inactive'}
+          {active ? t('admin.common.active') : t('admin.common.inactive')}
         </span>
       ),
     },
   ];
 
-  if (loading) return <div className="loading">Loading home content...</div>;
+  if (loading) return <div className="loading">{t('auth.loading')}</div>;
 
   return (
     <div className="admin-page">
       <div className="page-header">
-        <h1>Home Page</h1>
-        <button onClick={() => openFeatureModal()} className="btn-add">+ Add Feature</button>
+        <h1>{t('admin.home.pageTitle')}</h1>
+        <button onClick={() => openFeatureModal()} className="btn-add">+ {t('admin.home.addFeature')}</button>
       </div>
       <DataTable columns={featureColumns} data={features} onEdit={openFeatureModal} onDelete={handleDeleteFeature} />
 
       <div className="page-header" style={{ marginTop: '3rem' }}>
-        <h1>Showcase</h1>
-        <button onClick={() => openShowcaseModal()} className="btn-add">+ Add Showcase Item</button>
+        <h1>{t('admin.home.showcase')}</h1>
+        <button onClick={() => openShowcaseModal()} className="btn-add">+ {t('admin.home.addShowcaseItem')}</button>
       </div>
       <DataTable columns={showcaseColumns} data={showcase} onEdit={openShowcaseModal} onDelete={handleDeleteShowcase} />
 
       {modalType === 'feature' && (
-        <FormModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title={editingItem ? 'Edit Feature' : 'Add Feature'}>
+        <FormModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title={editingItem ? `${t('admin.table.edit')} ${t('admin.dashboard.features')}` : `${t('admin.common.create')} ${t('admin.dashboard.features')}`}>
           <form onSubmit={handleSubmitFeature}>
             <div className="form-group">
               <label>Icon *</label>
@@ -239,19 +241,19 @@ function HomeAdmin() {
                   checked={featureForm.active}
                   onChange={(e) => setFeatureForm({ ...featureForm, active: e.target.checked })}
                 />{' '}
-                Active
+                {t('admin.common.active')}
               </label>
             </div>
             <div className="form-actions">
-              <button type="button" onClick={() => setIsModalOpen(false)} className="btn-cancel">Cancel</button>
-              <button type="submit" className="btn-submit">{editingItem ? 'Update' : 'Create'}</button>
+              <button type="button" onClick={() => setIsModalOpen(false)} className="btn-cancel">{t('admin.common.cancel')}</button>
+              <button type="submit" className="btn-submit">{editingItem ? t('admin.common.update') : t('admin.common.create')}</button>
             </div>
           </form>
         </FormModal>
       )}
 
       {modalType === 'showcase' && (
-        <FormModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title={editingItem ? 'Edit Showcase Item' : 'Add Showcase Item'}>
+        <FormModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title={editingItem ? `${t('admin.table.edit')} ${t('admin.home.showcase')}` : `${t('admin.common.create')} ${t('admin.home.showcase')}`}>
           <form onSubmit={handleSubmitShowcase}>
             <div className="form-group">
               <label>Title *</label>
@@ -286,12 +288,12 @@ function HomeAdmin() {
                   checked={showcaseForm.active}
                   onChange={(e) => setShowcaseForm({ ...showcaseForm, active: e.target.checked })}
                 />{' '}
-                Active
+                {t('admin.common.active')}
               </label>
             </div>
             <div className="form-actions">
-              <button type="button" onClick={() => setIsModalOpen(false)} className="btn-cancel">Cancel</button>
-              <button type="submit" className="btn-submit">{editingItem ? 'Update' : 'Create'}</button>
+              <button type="button" onClick={() => setIsModalOpen(false)} className="btn-cancel">{t('admin.common.cancel')}</button>
+              <button type="submit" className="btn-submit">{editingItem ? t('admin.common.update') : t('admin.common.create')}</button>
             </div>
           </form>
         </FormModal>

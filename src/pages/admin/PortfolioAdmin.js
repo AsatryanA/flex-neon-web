@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLanguage } from '../../i18n/LanguageContext';
 import DataTable from '../../components/admin/DataTable';
 import FormModal from '../../components/admin/FormModal';
 import ImageUpload from '../../components/admin/ImageUpload';
@@ -11,6 +12,7 @@ import {
 import './PortfolioAdmin.css';
 
 function PortfolioAdmin() {
+  const { t } = useLanguage();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -105,7 +107,7 @@ function PortfolioAdmin() {
   };
 
   const columns = [
-    { key: 'title', label: 'Title' },
+    { key: 'title', label: t('admin.common.title') },
     { key: 'category', label: 'Category' },
     {
       key: 'imageUrl',
@@ -114,29 +116,29 @@ function PortfolioAdmin() {
         <img src={url} alt="Portfolio" style={{ width: '80px', height: '60px', objectFit: 'cover', borderRadius: '4px' }} />
       ),
     },
-    { key: 'color', label: 'Color' },
-    { key: 'displayOrder', label: 'Order' },
+    { key: 'color', label: t('admin.common.color') },
+    { key: 'displayOrder', label: t('admin.common.order') },
     {
       key: 'active',
-      label: 'Status',
+      label: t('admin.common.status'),
       render: (active) => (
         <span className={active ? 'status-active' : 'status-inactive'}>
-          {active ? 'Active' : 'Inactive'}
+          {active ? t('admin.common.active') : t('admin.common.inactive')}
         </span>
       ),
     },
   ];
 
   if (loading) {
-    return <div className="loading">Loading...</div>;
+    return <div className="loading">{t('auth.loading')}</div>;
   }
 
   return (
     <div className="portfolio-admin">
       <div className="page-header">
-        <h1>Portfolio Management</h1>
+        <h1>{t('admin.portfolio.management')}</h1>
         <button onClick={handleAdd} className="btn-add">
-          + Add New Item
+          + {t('admin.portfolio.addNewItem')}
         </button>
       </div>
 
@@ -150,7 +152,7 @@ function PortfolioAdmin() {
       <FormModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title={editingItem ? 'Edit Portfolio Item' : 'Add Portfolio Item'}
+        title={editingItem ? `${t('admin.table.edit')} ${t('admin.dashboard.portfolioItems')}` : `${t('admin.common.create')} ${t('admin.dashboard.portfolioItems')}`}
       >
         <form onSubmit={handleSubmit}>
           <div className="form-group">
@@ -215,16 +217,16 @@ function PortfolioAdmin() {
                 checked={formData.active}
                 onChange={(e) => setFormData({ ...formData, active: e.target.checked })}
               />
-              {' '}Active
+              {' '}{t('admin.common.active')}
             </label>
           </div>
 
           <div className="form-actions">
             <button type="button" onClick={() => setIsModalOpen(false)} className="btn-cancel">
-              Cancel
+              {t('admin.common.cancel')}
             </button>
             <button type="submit" className="btn-submit">
-              {editingItem ? 'Update' : 'Create'}
+              {editingItem ? t('admin.common.update') : t('admin.common.create')}
             </button>
           </div>
         </form>

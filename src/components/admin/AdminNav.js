@@ -1,15 +1,17 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useLanguage } from '../../i18n/LanguageContext';
 import './AdminNav.css';
 
 function AdminNav() {
+  const { t } = useLanguage();
   const navItems = [
-    { path: '/admin', label: 'Home', icon: '🏠', exact: true },
-    { path: '/admin/portfolio', label: 'Portfolio', icon: '🖼️' },
-    { path: '/admin/about', label: 'About', icon: 'ℹ️' },
-    { path: '/admin/rent', label: 'Rent', icon: '🎉' },
-    { path: '/admin/contact', label: 'Contact', icon: '📞' },
-    { path: '/admin/settings', label: 'Settings', icon: '⚙️' },
+    { path: '/admin', label: t('nav.home'), icon: '🏠', exact: true },
+    { path: '/admin/portfolio', label: t('nav.portfolio'), icon: '🖼️' },
+    { path: '/admin/about', label: t('nav.about'), icon: 'ℹ️' },
+    { path: '/admin/rent', label: t('nav.rent'), icon: '🎉' },
+    { path: '/admin/contact', label: t('nav.contact'), icon: '📞' },
+    { path: '/admin/settings', label: t('nav.settings'), icon: '⚙️' },
   ];
 
   return (

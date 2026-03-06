@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getContactInfo, getFAQs } from '../api/contentService';
+import { useLanguage } from '../i18n/LanguageContext';
 import './Contact.css';
 
 const fallbackContactInfo = [
@@ -52,7 +53,7 @@ const sortAndFilterActive = (items) => items
   .filter((item) => item?.active !== false)
   .sort((a, b) => (a.displayOrder ?? 0) - (b.displayOrder ?? 0));
 
-const ensureWorkingHoursCard = (items) => {
+const ensureWorkingHoursCard = (items, t) => {
   const hasWorkingHours = items.some((item) => {
     const title = (item.title || '').toLowerCase();
     return title.includes('working') || title.includes('hours');
@@ -64,14 +65,15 @@ const ensureWorkingHoursCard = (items) => {
     ...items,
     {
       icon: '⏰',
-      title: 'Working Hours',
-      info: 'Mon-Fri: 10AM - 7PM',
+      title: t('contact.info.hours'),
+      info: t('contact.info.hoursText'),
       link: null,
     },
   ];
 };
 
 function Contact() {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -99,7 +101,7 @@ function Contact() {
             info: item.info || '',
             link: item.link || null,
           }));
-          setContactInfo(ensureWorkingHoursCard(mapped));
+          setContactInfo(ensureWorkingHoursCard(mapped, t));
         }
 
         if (apiFaqs.length) {
@@ -116,7 +118,7 @@ function Contact() {
     };
 
     fetchContent();
-  }, []);
+  }, [t]);
 
   const handleChange = (e) => {
     setFormData({
@@ -142,7 +144,7 @@ function Contact() {
   };
 
   if (loading) {
-    return <div className="loading">Loading...</div>;
+    return <div className="loading">{t('auth.loading')}</div>;
   }
 
   return (
@@ -150,10 +152,10 @@ function Contact() {
       <div className="contact-container">
         <div className="contact-header">
           <h1 className="contact-title">
-            <span className="neon-text" style={{ color: 'var(--neon-pink)' }}>Get In Touch</span>
+            <span className="neon-text" style={{ color: 'var(--neon-pink)' }}>{t('contact.title')}</span>
           </h1>
           <p className="contact-subtitle">
-            Have a question? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+            {t('contact.subtitle')}
           </p>
         </div>
 
@@ -176,20 +178,20 @@ function Contact() {
         <div className="contact-form-section">
           <div className="form-wrapper">
             <h2 className="form-heading neon-text" style={{ color: 'var(--neon-blue)' }}>
-              Send Us a Message
+              {t('contact.form.heading')}
             </h2>
 
             {submitted ? (
               <div className="success-message">
                 <div className="success-icon">✓</div>
-                <h3>Message Sent Successfully!</h3>
-                <p>We'll get back to you as soon as possible.</p>
+                <h3>{t('contact.form.success')}</h3>
+                <p>{t('contact.form.successText')}</p>
               </div>
             ) : (
               <form className="contact-form" onSubmit={handleSubmit}>
                 <div className="form-row">
                   <div className="form-group">
-                    <label htmlFor="name">Your Name *</label>
+                    <label htmlFor="name">{t('contact.form.name')} *</label>
                     <input
                       type="text"
                       id="name"
@@ -197,11 +199,11 @@ function Contact() {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      placeholder="John Doe"
+                      placeholder={t('contact.form.namePlaceholder')}
                     />
                   </div>
                   <div className="form-group">
-                    <label htmlFor="email">Email Address *</label>
+                    <label htmlFor="email">{t('contact.form.email')} *</label>
                     <input
                       type="email"
                       id="email"
@@ -209,25 +211,25 @@ function Contact() {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      placeholder="john@example.com"
+                      placeholder={t('contact.form.emailPlaceholder')}
                     />
                   </div>
                 </div>
 
                 <div className="form-row">
                   <div className="form-group">
-                    <label htmlFor="phone">Phone Number</label>
+                    <label htmlFor="phone">{t('contact.form.phone')}</label>
                     <input
                       type="tel"
                       id="phone"
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      placeholder="+1 (555) 123-4567"
+                      placeholder={t('contact.form.phonePlaceholder')}
                     />
                   </div>
                   <div className="form-group">
-                    <label htmlFor="subject">Subject *</label>
+                    <label htmlFor="subject">{t('contact.form.subject')} *</label>
                     <input
                       type="text"
                       id="subject"
@@ -235,13 +237,13 @@ function Contact() {
                       value={formData.subject}
                       onChange={handleChange}
                       required
-                      placeholder="What is this regarding?"
+                      placeholder={t('contact.form.subjectPlaceholder')}
                     />
                   </div>
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="message">Your Message *</label>
+                  <label htmlFor="message">{t('contact.form.message')} *</label>
                   <textarea
                     id="message"
                     name="message"
@@ -249,12 +251,12 @@ function Contact() {
                     onChange={handleChange}
                     required
                     rows="6"
-                    placeholder="Tell us more about your project..."
+                    placeholder={t('contact.form.messagePlaceholder')}
                   ></textarea>
                 </div>
 
                 <button type="submit" className="neon-button submit-btn">
-                  Send Message
+                  {t('contact.form.submit')}
                 </button>
               </form>
             )}
@@ -263,7 +265,7 @@ function Contact() {
 
         <div className="contact-faq">
           <h2 className="section-heading neon-text" style={{ color: 'var(--neon-purple)' }}>
-            Frequently Asked Questions
+            {t('contact.faq.title')}
           </h2>
           <div className="faq-grid">
             {faqs.map((faq, index) => (

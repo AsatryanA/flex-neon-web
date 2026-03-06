@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLanguage } from '../../i18n/LanguageContext';
 import DataTable from '../../components/admin/DataTable';
 import FormModal from '../../components/admin/FormModal';
 import {
@@ -14,6 +15,7 @@ import {
 import './AdminPages.css';
 
 function ContactAdmin() {
+  const { t } = useLanguage();
   const [contactItems, setContactItems] = useState([]);
   const [faqItems, setFaqItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -185,16 +187,16 @@ function ContactAdmin() {
   };
 
   const contactColumns = [
-    { key: 'icon', label: 'Icon' },
-    { key: 'title', label: 'Title' },
+    { key: 'icon', label: t('admin.common.icon') },
+    { key: 'title', label: t('admin.common.title') },
     { key: 'info', label: 'Info' },
-    { key: 'displayOrder', label: 'Order' },
+    { key: 'displayOrder', label: t('admin.common.order') },
     {
       key: 'active',
-      label: 'Status',
+      label: t('admin.common.status'),
       render: (active) => (
         <span className={active ? 'status-active' : 'status-inactive'}>
-          {active ? 'Active' : 'Inactive'}
+          {active ? t('admin.common.active') : t('admin.common.inactive')}
         </span>
       ),
     },
@@ -207,27 +209,27 @@ function ContactAdmin() {
       label: 'Answer',
       render: (answer) => answer.substring(0, 100) + (answer.length > 100 ? '...' : '')
     },
-    { key: 'displayOrder', label: 'Order' },
+    { key: 'displayOrder', label: t('admin.common.order') },
     {
       key: 'active',
-      label: 'Status',
+      label: t('admin.common.status'),
       render: (active) => (
         <span className={active ? 'status-active' : 'status-inactive'}>
-          {active ? 'Active' : 'Inactive'}
+          {active ? t('admin.common.active') : t('admin.common.inactive')}
         </span>
       ),
     },
   ];
 
-  if (loading) return <div className="loading">Loading...</div>;
+  if (loading) return <div className="loading">{t('auth.loading')}</div>;
 
   return (
     <div className="admin-page">
       {/* Contact Info Section */}
       <div className="page-header">
-        <h1>Contact Info</h1>
+        <h1>{t('admin.contact.info')}</h1>
         <button onClick={handleAddContact} className="btn-add">
-          + Add Contact Info
+          + {t('admin.contact.addInfo')}
         </button>
       </div>
       <DataTable
@@ -241,7 +243,7 @@ function ContactAdmin() {
       <div className="page-header" style={{ marginTop: '3rem' }}>
         <h1>FAQs</h1>
         <button onClick={handleAddFAQ} className="btn-add">
-          + Add FAQ
+          + {t('admin.contact.addFaq')}
         </button>
       </div>
       <DataTable
@@ -311,15 +313,15 @@ function ContactAdmin() {
                   checked={contactFormData.active}
                   onChange={(e) => setContactFormData({ ...contactFormData, active: e.target.checked })}
                 />
-                {' '}Active
+                {' '}{t('admin.common.active')}
               </label>
             </div>
             <div className="form-actions">
               <button type="button" onClick={() => setIsModalOpen(false)} className="btn-cancel">
-                Cancel
+                {t('admin.common.cancel')}
               </button>
               <button type="submit" className="btn-submit">
-                {editingItem ? 'Update' : 'Create'}
+                {editingItem ? t('admin.common.update') : t('admin.common.create')}
               </button>
             </div>
           </form>
@@ -367,15 +369,15 @@ function ContactAdmin() {
                   checked={faqFormData.active}
                   onChange={(e) => setFaqFormData({ ...faqFormData, active: e.target.checked })}
                 />
-                {' '}Active
+                {' '}{t('admin.common.active')}
               </label>
             </div>
             <div className="form-actions">
               <button type="button" onClick={() => setIsModalOpen(false)} className="btn-cancel">
-                Cancel
+                {t('admin.common.cancel')}
               </button>
               <button type="submit" className="btn-submit">
-                {editingItem ? 'Update' : 'Create'}
+                {editingItem ? t('admin.common.update') : t('admin.common.create')}
               </button>
             </div>
           </form>

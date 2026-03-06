@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { getPortfolio } from '../api/contentService';
+import { useLanguage } from '../i18n/LanguageContext';
 import './Portfolio.css';
 
 const fallbackPortfolioItems = [
@@ -15,13 +16,6 @@ const fallbackPortfolioItems = [
   { id: 10, title: 'Be Kind', category: 'quotes', color: 'green', imageUrl: '' },
   { id: 11, title: 'PIZZA', category: 'business', color: 'orange', imageUrl: '' },
   { id: 12, title: 'Forever', category: 'wedding', color: 'pink', imageUrl: '' },
-];
-
-const categories = [
-  { id: 'all', label: 'All Designs' },
-  { id: 'quotes', label: 'Quotes' },
-  { id: 'business', label: 'Business' },
-  { id: 'wedding', label: 'Wedding' },
 ];
 
 const normalizeCategory = (category = '') => category.toLowerCase();
@@ -51,11 +45,18 @@ const getItemImageUrl = (item = {}) => {
 };
 
 function Portfolio() {
+  const { t } = useLanguage();
   const [filter, setFilter] = useState('all');
   const [portfolioItems, setPortfolioItems] = useState(fallbackPortfolioItems);
   const [loading, setLoading] = useState(true);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const categories = [
+    { id: 'all', label: t('portfolio.allDesigns') },
+    { id: 'quotes', label: t('portfolio.quotes') },
+    { id: 'business', label: t('portfolio.business') },
+    { id: 'wedding', label: t('portfolio.wedding') },
+  ];
 
   useEffect(() => {
     const fetchPortfolio = async () => {
@@ -122,7 +123,7 @@ function Portfolio() {
   }, [closeLightbox, filteredItems.length, isLightboxOpen, showNext, showPrev]);
 
   if (loading) {
-    return <div className="loading">Loading...</div>;
+    return <div className="loading">{t('auth.loading')}</div>;
   }
 
   return (
@@ -130,10 +131,10 @@ function Portfolio() {
       <div className="portfolio-container">
         <div className="portfolio-header">
           <h1 className="portfolio-title">
-            <span className="neon-text" style={{ color: 'var(--neon-pink)' }}>Our Portfolio</span>
+            <span className="neon-text" style={{ color: 'var(--neon-pink)' }}>{t('portfolio.title')}</span>
           </h1>
           <p className="portfolio-subtitle">
-            Explore our stunning collection of custom neon signs
+            {t('portfolio.subtitle')}
           </p>
         </div>
 
@@ -184,13 +185,13 @@ function Portfolio() {
 
         <div className="portfolio-cta">
           <h2 className="cta-title neon-text" style={{ color: 'var(--neon-blue)' }}>
-            Have Your Own Design in Mind?
+            {t('portfolio.ctaTitle')}
           </h2>
           <p className="cta-text">
-            Let us bring your vision to life with a custom neon sign
+            {t('portfolio.ctaText')}
           </p>
           <button className="neon-button order-now-glow" onClick={() => window.location.href = '/order'}>
-            Start Designing
+            {t('portfolio.startDesigning')}
           </button>
         </div>
       </div>

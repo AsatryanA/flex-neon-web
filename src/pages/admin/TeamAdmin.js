@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLanguage } from '../../i18n/LanguageContext';
 import DataTable from '../../components/admin/DataTable';
 import FormModal from '../../components/admin/FormModal';
 import {
@@ -10,6 +11,7 @@ import {
 import './AdminPages.css';
 
 function TeamAdmin() {
+  const { t } = useLanguage();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -99,7 +101,7 @@ function TeamAdmin() {
     },
   ];
 
-  if (loading) return <div className="loading">Loading...</div>;
+  if (loading) return <div className="loading">{t('auth.loading')}</div>;
 
   return (
     <div className="admin-page">

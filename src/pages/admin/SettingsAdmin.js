@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { useLanguage } from '../../i18n/LanguageContext';
 import ImageUpload from '../../components/admin/ImageUpload';
 import {
   assignAdminRole,
@@ -10,6 +11,7 @@ import {
 import './SettingsAdmin.css';
 
 function SettingsAdmin() {
+  const { t } = useLanguage();
   const [settings, setSettings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -129,14 +131,14 @@ function SettingsAdmin() {
     }
   };
 
-  if (loading) return <div className="loading">Loading settings...</div>;
+  if (loading) return <div className="loading">{t('auth.loading')}</div>;
 
   return (
     <div className="settings-admin">
       <div className="page-header">
-        <h1>Settings</h1>
+        <h1>{t('admin.settings.title')}</h1>
         <button className="settings-btn" onClick={handleSaveGeneral} disabled={saving}>
-          {saving ? 'Saving...' : 'Save General Settings'}
+          {saving ? t('admin.common.saving') : t('admin.settings.saveGeneral')}
         </button>
       </div>
 

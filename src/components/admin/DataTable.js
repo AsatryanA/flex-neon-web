@@ -1,7 +1,9 @@
 import React from 'react';
+import { useLanguage } from '../../i18n/LanguageContext';
 import './DataTable.css';
 
 function DataTable({ columns, data, onEdit, onDelete }) {
+  const { t } = useLanguage();
   return (
     <div className="data-table-container">
       <table className="data-table">
@@ -10,7 +12,7 @@ function DataTable({ columns, data, onEdit, onDelete }) {
             {columns.map((col) => (
               <th key={col.key}>{col.label}</th>
             ))}
-            <th>Actions</th>
+            <th>{t('admin.table.actions')}</th>
           </tr>
         </thead>
         <tbody>
@@ -27,13 +29,13 @@ function DataTable({ columns, data, onEdit, onDelete }) {
                     onClick={() => onEdit(row)}
                     className="btn-action btn-edit"
                   >
-                    Edit
+                    {t('admin.table.edit')}
                   </button>
                   <button
                     onClick={() => onDelete(row.id)}
                     className="btn-action btn-delete"
                   >
-                    Delete
+                    {t('admin.table.delete')}
                   </button>
                 </td>
               </tr>
@@ -41,7 +43,7 @@ function DataTable({ columns, data, onEdit, onDelete }) {
           ) : (
             <tr>
               <td colSpan={columns.length + 1} className="no-data">
-                No data available
+                {t('admin.table.noData')}
               </td>
             </tr>
           )}

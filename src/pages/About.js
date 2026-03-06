@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getStats, getStory, getTeam, getValues } from '../api/contentService';
+import { useLanguage } from '../i18n/LanguageContext';
 import './About.css';
 
 const fallbackStats = [
@@ -50,6 +51,7 @@ const sortAndFilterActive = (items) => items
   .sort((a, b) => (a.displayOrder ?? 0) - (b.displayOrder ?? 0));
 
 function About() {
+  const { t } = useLanguage();
   const [stats, setStats] = useState(fallbackStats);
   const [team, setTeam] = useState(fallbackTeam);
   const [values, setValues] = useState(fallbackValues);
@@ -111,7 +113,7 @@ function About() {
   }, []);
 
   if (loading) {
-    return <div className="loading">Loading...</div>;
+    return <div className="loading">{t('auth.loading')}</div>;
   }
 
   return (
@@ -119,17 +121,17 @@ function About() {
       <div className="about-container">
         <div className="about-hero">
           <h1 className="about-title">
-            <span className="neon-text" style={{ color: 'var(--neon-pink)' }}>About Us</span>
+            <span className="neon-text" style={{ color: 'var(--neon-pink)' }}>{t('about.title')}</span>
           </h1>
           <p className="about-lead">
-            Bringing Light to Life Since 2009
+            {t('about.lead')}
           </p>
         </div>
 
         <section className="about-story">
           <div className="story-content">
             <h2 className="section-heading neon-text" style={{ color: 'var(--neon-blue)' }}>
-              Our Story
+              {t('about.ourStory')}
             </h2>
             <div className="story-text">
               {storyParagraphs.map((paragraph, index) => (
@@ -154,7 +156,7 @@ function About() {
 
         <section className="about-values">
           <h2 className="section-heading neon-text" style={{ color: 'var(--neon-purple)' }}>
-            Our Values
+            {t('about.ourValues')}
           </h2>
           <div className="values-grid">
             {values.map((value, index) => (
@@ -169,7 +171,7 @@ function About() {
 
         <section className="about-team">
           <h2 className="section-heading neon-text" style={{ color: 'var(--neon-green)' }}>
-            Meet Our Team
+            {t('about.meetTeam')}
           </h2>
           <div className="team-grid">
             {team.map((member, index) => (
@@ -185,13 +187,13 @@ function About() {
         <section className="about-cta">
           <div className="cta-box">
             <h2 className="cta-title neon-text" style={{ color: 'var(--neon-pink)' }}>
-              Ready to Work With Us?
+              {t('about.readyTitle')}
             </h2>
             <p className="cta-text">
-              Let's create something amazing together
+              {t('about.readyText')}
             </p>
             <button className="neon-button" onClick={() => window.location.href = '/contact'}>
-              Get In Touch
+              {t('about.getInTouch')}
             </button>
           </div>
         </section>
